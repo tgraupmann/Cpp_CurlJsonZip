@@ -77,6 +77,8 @@ int DoCompression(const char* istream)
 
     free(ostream);
     free(o2stream);
+
+    return 0;
 }
 
 size_t CurlWrite_CallbackFunc_StdString(void* contents, size_t size, size_t nmemb, string* s)
@@ -86,7 +88,7 @@ size_t CurlWrite_CallbackFunc_StdString(void* contents, size_t size, size_t nmem
     {
         s->append((char*)contents, newLength);
     }
-    catch (std::bad_alloc& e)
+    catch (std::bad_alloc&)
     {
         //handle memory problem
         return 0;
@@ -111,9 +113,7 @@ void DoHttpPost()
         curl_easy_setopt(curl, CURLOPT_URL, "https://tagenigma.com/post/");
         // ignore SSL errors
         curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);
-        // don't print response
-        //curl_easy_setopt(curl, CURLOPT_NOBODY, 1);
-        //curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
+        //curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L); //uncomment to see verbose output
         /* Now specify the POST data */
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "name=daniel&project=curl");
 
@@ -158,12 +158,8 @@ int main()
     return 0;
 }
 
-#pragma comment( lib, "legacy_stdio_definitions" )
-//#pragma comment( lib, "legacy_stdio_wide_specifiers" )
 #pragma comment( lib, "Wldap32" )
 #pragma comment( lib, "Ws2_32" )
-//#pragma comment( lib, "ucrt" )
-#pragma comment( lib, "vcruntime" )
 #pragma comment( lib, "msvcrt" )
 #pragma comment( lib, "libcurl" )
 #pragma comment( lib, "libssh2" )
