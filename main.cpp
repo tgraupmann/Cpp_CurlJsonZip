@@ -5,19 +5,32 @@
 // libzip - Compressing ASCII Text
 //
 
-#define CURL_STATICLIB
-
 #include <stdio.h>
+
+#include <json/json.h>
 
 #include <zlib.h>
 
+#define CURL_STATICLIB
 #include <curl.h>
+
+
 
 int main()
 {
 	fprintf(stdout, "Hello World!\r\n");
 
     fprintf(stdout, "zlib version is %s\r\n", ZLIB_VERSION);
+
+    /*
+    Json::Value jsonObject;
+    jsonObject.append("data");
+    jsonObject["data"] = 123;
+    jsonObject.append("hello");
+    jsonObject["hello"] = "ok";
+
+    fprintf(stdout, "Json:\r\n%s\r\n", jsonObject.asCString());
+    */
 
     CURL* curl;
     CURLcode res;
@@ -54,12 +67,16 @@ int main()
 }
 
 #pragma comment( lib, "legacy_stdio_definitions" )
+//#pragma comment( lib, "legacy_stdio_wide_specifiers" )
 #pragma comment( lib, "Wldap32" )
 #pragma comment( lib, "Ws2_32" )
+//#pragma comment( lib, "ucrt" )
+#pragma comment( lib, "vcruntime" )
+#pragma comment( lib, "msvcrt" )
 #pragma comment( lib, "libcurl" )
 #pragma comment( lib, "libssh2" )
 #pragma comment( lib, "libcrypto" )
 #pragma comment( lib, "libssl" )
 #pragma comment( lib, "zlibstat" )
 #pragma comment (lib, "crypt32")
-
+#pragma comment (lib, "jsoncpp")
