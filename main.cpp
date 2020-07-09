@@ -11,19 +11,13 @@
 
 #include <zlib.h>
 
-#include <curl/curl.h>
-
-FILE _iob[] = { *stdin, *stdout, *stderr };
-extern "C" FILE * __cdecl __iob_func(void) { return _iob; }
+#include <curl.h>
 
 int main()
 {
 	fprintf(stdout, "Hello World!\r\n");
 
-#ifdef HAS_ZLIB
-    fprintf(stdout, "zlib version is %s\r\n", zlibVersion());
-#endif
-
+    fprintf(stdout, "zlib version is %s\r\n", ZLIB_VERSION);
 
     CURL* curl;
     CURLcode res;
@@ -38,6 +32,7 @@ int main()
            just as well be a https:// URL if that is what should receive the
            data. */
         curl_easy_setopt(curl, CURLOPT_URL, "http://postit.example.com/moo.cgi");
+        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);
         /* Now specify the POST data */
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "name=daniel&project=curl");
 
@@ -60,6 +55,8 @@ int main()
 #pragma comment( lib, "Ws2_32" )
 #pragma comment( lib, "libcurl" )
 #pragma comment( lib, "libssh2" )
-#pragma comment( lib, "libeay32" )
-#pragma comment( lib, "ssleay32" )
-#pragma comment( lib, "zlib" )
+#pragma comment( lib, "libcrypto" )
+#pragma comment( lib, "libssl" )
+#pragma comment( lib, "zlibstat" )
+#pragma comment (lib, "crypt32")
+
