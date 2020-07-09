@@ -130,12 +130,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)packages\rmt_curl.7.51.0\build\native\include\v140\Win32\Release\static;$(SolutionDir)packages\jsoncpp-vc140-static-32_64.1.8.0\lib\native\include</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)packages\rmt_curl.7.51.0\build\native\lib\v140\Win32\$(Configuration)\static;$(SolutionDir)packages\rmt_libssh2.1.8.0.0\build\native\lib\v140\Win32\$(Configuration)\static;$(SolutionDir)packages\rmt_openssl.1.1.0.3\build\native\lib\v140\Win32\$(Configuration)\static;$(SolutionDir)packages\rmt_zlib.1.2.8.7\build\native\lib\v140\Win32\$(Configuration)\static;$(SolutionDir)packages\jsoncpp-vc140-static-32_64.1.8.0\lib\native\libs\x86\static\$(Configuration)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -144,6 +147,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)packages\rmt_curl.7.51.0\build\native\include\v140\Win32\Release\static;$(SolutionDir)packages\jsoncpp-vc140-static-32_64.1.8.0\lib\native\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -158,6 +162,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)packages\rmt_curl.7.51.0\build\native\include\v140\Win32\Release\static;$(SolutionDir)packages\jsoncpp-vc140-static-32_64.1.8.0\lib\native\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

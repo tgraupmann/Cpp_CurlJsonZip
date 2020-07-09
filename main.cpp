@@ -6,6 +6,7 @@
 //
 
 #include <stdio.h>
+#include <iostream>
 
 #include <json/json.h>
 
@@ -13,6 +14,8 @@
 
 #define CURL_STATICLIB
 #include <curl.h>
+
+using namespace std;
 
 
 
@@ -22,15 +25,19 @@ int main()
 
     fprintf(stdout, "zlib version is %s\r\n", ZLIB_VERSION);
 
-    /*
-    Json::Value jsonObject;
-    jsonObject.append("data");
-    jsonObject["data"] = 123;
-    jsonObject.append("hello");
-    jsonObject["hello"] = "ok";
 
-    fprintf(stdout, "Json:\r\n%s\r\n", jsonObject.asCString());
-    */
+    // create the characters array
+    Json::Value ch;
+    ch[0]["name"] = "Jabberwock";
+    ch[0]["chapter"] = 1;
+    ch[1]["name"] = "Cheshire Cat";
+    ch[1]["chapter"] = 6;
+    ch[2]["name"] = "Mad Hatter";
+    ch[2]["chapter"] = 7;
+
+    cout << "Json:" << endl;
+    cout << ch << endl;
+
 
     CURL* curl;
     CURLcode res;
