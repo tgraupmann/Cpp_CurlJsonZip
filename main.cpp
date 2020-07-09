@@ -32,7 +32,10 @@ int main()
            just as well be a https:// URL if that is what should receive the
            data. */
         curl_easy_setopt(curl, CURLOPT_URL, "http://postit.example.com/moo.cgi");
+        // ignore SSL errors
         curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);
+        // don't print response
+        curl_easy_setopt(curl, CURLOPT_NOBODY, 1);
         /* Now specify the POST data */
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "name=daniel&project=curl");
 
