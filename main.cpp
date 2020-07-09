@@ -46,11 +46,11 @@ int DoCompression(const char* istream)
     cout << "Original size: " << strlen(istream) << endl;
     cout << istream << endl;
 
-    size_t srcLen = strlen(istream) + 1;      // +1 for the trailing `\0`
-    size_t destLen = compressBound(srcLen); // this is how you should estimate size 
+    size_t srcLen = (size_t)strlen(istream) + 1;      // +1 for the trailing `\0`
+    size_t destLen = (size_t)compressBound((uLong)srcLen); // this is how you should estimate size 
                                            // needed for the buffer
     char* ostream = (char*)malloc(destLen);
-    int res = compress((Bytef*)ostream, (uLongf*)&destLen, (const Bytef*)istream, srcLen);
+    int res = compress((Bytef*)ostream, (uLongf*)&destLen, (const Bytef*)istream, (uLong)srcLen);
     // destLen is now the size of actuall buffer needed for compression
     // you don't want to uncompress whole buffer later, just the used part
     if (res == Z_BUF_ERROR) {
@@ -70,7 +70,7 @@ int DoCompression(const char* istream)
     const char* i2stream = ostream;
     char* o2stream = (char*)malloc(srcLen);
     size_t destLen2 = destLen; //destLen is the actual size of the compressed buffer
-    int des = uncompress((Bytef*)o2stream, (uLongf*)&srcLen, (const Bytef*)i2stream, destLen2);
+    int des = uncompress((Bytef*)o2stream, (uLongf*)&srcLen, (const Bytef*)i2stream, (uLong)destLen2);
 
     cout << "Uncompressed size: " << strlen(o2stream) << endl;
     cout << o2stream << endl;
@@ -158,13 +158,17 @@ int main()
     return 0;
 }
 
+#ifdef _DEBUG
+#pragma comment( lib, "msvcrtd" )
+#else
+#pragma comment( lib, "msvcrt" )
+#endif
 #pragma comment( lib, "Wldap32" )
 #pragma comment( lib, "Ws2_32" )
-#pragma comment( lib, "msvcrt" )
+#pragma comment (lib, "crypt32")
 #pragma comment( lib, "libcurl" )
 #pragma comment( lib, "libssh2" )
 #pragma comment( lib, "libcrypto" )
 #pragma comment( lib, "libssl" )
 #pragma comment( lib, "zlibstat" )
-#pragma comment (lib, "crypt32")
 #pragma comment (lib, "jsoncpp")
