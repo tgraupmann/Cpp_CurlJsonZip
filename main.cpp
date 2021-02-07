@@ -81,6 +81,45 @@ int DoCompression(const char* istream)
     return 0;
 }
 
+void DoUncompression()
+{
+    cout << "zlib version is " << ZLIB_VERSION << endl;
+
+    FILE* fstream;
+    fopen_s(&fstream, "binary.zip", "rb");  // r for read, b for binary
+    if (!fstream)
+    {
+        cerr << "Couldn't find file!" << endl;
+        return;
+    }
+    fseek(fstream, 0L, SEEK_END);
+    long fileSize = ftell(fstream);
+    fseek(fstream, 0L, SEEK_SET);
+
+    char* compressedBuffer = (char*)malloc(fileSize);
+    fread(compressedBuffer, fileSize, 1, fstream);
+    fclose(fstream);
+
+    cout << "Compressed Binary Size: " << fileSize << endl;
+
+    size_t destLen = 5000; //arbitrary
+    char* uncompressedBuffer = (char*)malloc(destLen);
+    int des = uncompress((Bytef*)uncompressedBuffer, (uLongf*)&destLen, (const Bytef*)compressedBuffer, (uLong)fileSize);
+
+    if (Z_OK == des)
+    {
+        cout << "Uncompressed OK, uncompressed size: " << destLen << endl;
+    }
+    else
+    {
+        cerr << "Failed to decompress!" << endl;
+    }
+
+    free(uncompressedBuffer);
+    free(compressedBuffer);
+
+}
+
 size_t CurlWrite_CallbackFunc_StdString(void* contents, size_t size, size_t nmemb, string* s)
 {
     size_t newLength = size * nmemb;
@@ -148,6 +187,8 @@ void DoHttpPost()
 int main()
 {
 	fprintf(stdout, "Hello World!\r\n");
+
+    DoUncompression();
 
     string strJson = DoJson();
 
